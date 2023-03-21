@@ -1,14 +1,28 @@
 #Password Generator Project
 import random
+from tkinter import *
+import pyperclip
+
+
 letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 symbols = ['!', '#', '$', '%', '&', '*', '+']
 # symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+# print(''.join(letters))
 
 print("Welcome to the PyPassword Generator!")
-nr_letters= int(input("How many letters would you like in your password?\n")) 
-nr_symbols = int(input(f"How many symbols would you like?\n"))
-nr_numbers = int(input(f"How many numbers would you like?\n"))
+# nr_letters= int(input("How many letters would you like in your password?\n")) 
+# nr_symbols = int(input(f"How many symbols would you like?\n"))
+# nr_numbers = int(input(f"How many numbers would you like?\n"))
+
+
+nr_letters= random.randint(5,15)
+nr_symbols = random.randint(5,15)
+nr_numbers = random.randint(5,15)
+
+
+
+
 
 #Eazy Level - Order not randomised:
 #e.g. 4 letter, 2 symbol, 2 number = JduE&!91
@@ -46,8 +60,8 @@ for numbers_range in range(0, nr_numbers):
   new_numbers.append(new_numbers_list)
   master_list.append(new_numbers_list)
 
-print("Here is the list easy, with the letters first, symbols second and numbers third")
-print(*new_letters + new_symbols + new_numbers, sep="")
+# print("Here is the list easy, with the letters first, symbols second and numbers third")
+# print(*new_letters + new_symbols + new_numbers, sep="")
 
 
 # master_list.append(new_letters)
@@ -69,7 +83,23 @@ for master_characters in range(0, master_list_length):
 
 print("Master list using shuffle")
 random.shuffle(master_list)
-print(*master_list, sep="")
+# print(*master_list, sep="")
+created_password = ''.join(master_list)
+pyperclip.copy(created_password)
+print(created_password)
+
+window = Tk()
+window.title("Kanye Says...")
+window.config(padx=50, pady=50)
+
+canvas = Canvas(width=300, height=414)
+
+quote_text = canvas.create_text(150, 207, text="Welcome to the PyPassword Generator", width=250, font=("Arial", 30, "bold"), fill="black")
+quote_text = canvas.create_text(150, 285, text="The password has automatically copied to your clipboard.", width=250, font=("Arial", 15, "bold"), fill="black")
+quote_text = canvas.create_text(150, 350, text=created_password, width=250, font=("Arial", 12, "bold"), fill="black")
+canvas.grid(row=0, column=0)
+
+window.mainloop()
 
 #Hard Level - Order of characters randomised:
 #e.g. 4 letter, 2 symbol, 2 number = g^2jk8&P
